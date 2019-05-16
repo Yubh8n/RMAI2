@@ -5,8 +5,8 @@ q_ludo_player::q_ludo_player()
 
 }
 
-void q_ludo_player::printQTable(){
-    std::cout<<"Q table"<<std::endl;
+void q_ludo_player::printQTable(int round){
+    std::cout<<"Q table\tRound:  "<<round<<std::endl;
     for (int i = 0; i< QLtable.size(); i++) {
         for (int j = 0; j< QLtable[0].size(); j++) {
             std::cout<<QLtable[i][j];
@@ -16,8 +16,9 @@ void q_ludo_player::printQTable(){
 }
 
 int q_ludo_player::make_decision(){
-
-    printQTable();
+    static int round = 0;       // Counts the number of rounds played in a game
+    round+=1;
+    printQTable(round);
 
 
 
