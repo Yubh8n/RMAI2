@@ -2,3 +2,5 @@
 *.autosave
 *Ludo.pro.*
 build-Ludo-Desktop-Debug/
+*.idea/
+

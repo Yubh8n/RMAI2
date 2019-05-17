@@ -1,9 +1,26 @@
 #include "ga_ludo_player.h"
 #include <random>
 
-ga_ludo_player::ga_ludo_player()
-{
+ga_ludo_player::ga_ludo_player(){
 
+}
+
+std::vector<std::vector<double>> randomize(std::vector<std::vector<double>> chromozones)
+{
+    RAND_MAX = 1;
+    std::vector<std::vector<double>> temp;
+
+    for (int i = 0; i<chromozones.size(); i++)
+    {
+        for (int j = 0; j<chromozones[i].size(); j++)
+        {
+            chromozones[i][j] = ((double) rand() / (RAND_MAX));
+        }
+    }
+
+
+
+    return temp;
 }
 
 int ga_ludo_player::make_decision(){
