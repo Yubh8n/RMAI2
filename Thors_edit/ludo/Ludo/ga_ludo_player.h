@@ -38,7 +38,8 @@ private:
     int dice_roll;
     int make_decision();
     std::vector<Chromosomes> population;
-
+    std::vector<int> wins;
+    std::vector<double> win_rate(Chromosomes);
 public:
     ga_ludo_player();
     std::vector<Chromosomes> initialPopulation();

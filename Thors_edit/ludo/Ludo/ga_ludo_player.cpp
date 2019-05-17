@@ -19,6 +19,7 @@ void randomize(std::vector<Chromosomes> &chromozones)
     }
 
 }
+
 std::vector<Chromosomes> ga_ludo_player::initialPopulation(){
     std::vector<Chromosomes> populationHolder;
     for (int i =0; i<POPULATION_SIZE; i++) {
@@ -82,5 +83,15 @@ void ga_ludo_player::post_game_analysis(std::vector<int> relative_pos){
             game_complete = false;
         }
     }
+    if (game_complete == true)
     emit turn_complete(game_complete);
+}
+
+std::vector<double> ga_ludo_player::win_rate(Chromosomes)
+{
+    std::vector<double> winrate;
+
+
+
+    return winrate;
 }

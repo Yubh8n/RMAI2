@@ -20,7 +20,6 @@ void game::reset(){
     color = 3;
 }
 
-
 int game::rel_to_fixed(int relative_piece_index){
     return relative_piece_index + color * 4;
 }
@@ -226,7 +225,7 @@ void game::turnComplete(bool win){
     game_complete = win;
     turn_complete = true;
     if(game_complete){
-        std::cout << "player: " << color << " won" << std::endl;
+        std::cout << "Player: " << color << " Wins" << std::endl;
         emit declare_winner(color);
     }
 }
@@ -234,7 +233,9 @@ void game::turnComplete(bool win){
 void game::run() {
     if(DEBUG) std::cout << "color:     relative pos => fixed\n";
 
-    for (int i = 0; i<100; i++)
+
+
+    for (int i = 0; i<games; i++)
     {
         while(!game_complete){
             if(turn_complete){
@@ -246,5 +247,6 @@ void game::run() {
         reset();
     }
     emit close();
-    //QThread::exit();
+    QThread::exit();
+    QThread::terminate();
 }
