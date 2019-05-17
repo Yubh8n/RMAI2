@@ -1,3 +1,4 @@
 *.user
 *.autosave
-
+*Ludo.pro.*
+build-Ludo-Desktop-Debug/
