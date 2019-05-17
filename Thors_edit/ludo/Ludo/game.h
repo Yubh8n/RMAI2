@@ -7,6 +7,7 @@
 #include <QtCore>
 #include <QThread>
 #include "positions_and_dice.h"
+#include "ga_ludo_player.h"
 
 #define games 10
 

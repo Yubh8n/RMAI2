@@ -5,11 +5,13 @@ ga_ludo_player::ga_ludo_player(){
 
 }
 
+
+
 void randomize(std::vector<Chromosomes> &chromozones)
 {
-    for (int i = 0; i<chromozones.size()-1; i++)
+    for (int i = 0; i<chromozones.size(); i++)
     {
-        for (int j = 0; j<chromozones[i].Genes.size()-1; j++)
+        for (int j = 0; j<chromozones[i].Genes.size(); j++)
         {
             chromozones[i].Genes[j] = ((double) rand()/(RAND_MAX));
             if(VERBOSE == true){
@@ -28,6 +30,15 @@ std::vector<Chromosomes> ga_ludo_player::initialPopulation(){
     return populationHolder;
 }
 
+void ga_ludo_player::printPopulationGenes(){
+    for (int i = 0;i<population.size();i++) {
+        std::cout<<"Chromosome: "<<i<<std::endl;
+        for (int j = 0; j<population[i].Genes.size(); j++) {
+            std::cout<<population[i].Genes[j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+}
 int ga_ludo_player::make_decision(){
 
     static int drawCnt = 0;
@@ -39,7 +50,16 @@ int ga_ludo_player::make_decision(){
             std::cout<<"Population size:\t"<<population.size()<<std::endl;
             std::cout<<"Gene lenght:\t"<<population[0].Genes.size()<<std::endl;
         }
+    printPopulationGenes();
     }
+
+
+    //std::cout<<"size of pos_start"<<pos_start_of_turn.size()<<std::endl;
+
+
+
+
+
 
 
     if(dice_roll == 6){

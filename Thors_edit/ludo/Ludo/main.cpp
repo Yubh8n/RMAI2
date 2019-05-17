@@ -55,6 +55,22 @@ int main(int argc, char *argv[]){
     w.show();
     //*/
 
-    g.start();
-    return a.exec();
+        /* add a GUI
+        Dialog w;
+        QObject::connect(&g, SIGNAL(update_graphics(std::vector < int > )), &w,
+                         SLOT(update_graphics(std::vector < int > )));
+        QObject::connect(&g, SIGNAL(set_color(int)), &w, SLOT(get_color(int)));
+        QObject::connect(&g, SIGNAL(set_dice_result(int)), &w, SLOT(get_dice_result(int)));
+        QObject::connect(&g, SIGNAL(declare_winner(int)), &w, SLOT(get_winner(int)));
+        w.show();
+        //*/
+
+
+        g.start();
+        std::cout<<"test"<<std::endl;
+        a.exec();
+        g.reset();
+
+        std::cout<<"prebreak"<<std::endl;
+    return 0;
 }
