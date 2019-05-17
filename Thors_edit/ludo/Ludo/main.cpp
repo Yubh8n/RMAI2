@@ -5,8 +5,7 @@
 #include "ludo_player.h"
 #include "ludo_player_random.h"
 #include "positions_and_dice.h"
-
-#include "q_ludo_player.h"
+#include "ga_ludo_player.h"
 
 Q_DECLARE_METATYPE( positions_and_dice )
 

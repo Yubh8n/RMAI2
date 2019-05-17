@@ -31,7 +31,6 @@ struct Chromosomes
 
 };
 
-
 class ga_ludo_player : public QObject {
     Q_OBJECT
 private:
@@ -52,5 +51,6 @@ public slots:
     void start_turn(positions_and_dice relative);
     void post_game_analysis(std::vector<int> relative_pos);
 };
+
 
 #endif // GA_LUDO_PLAYER_H
