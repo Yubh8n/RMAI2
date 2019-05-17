@@ -27,8 +27,6 @@ struct Chromosomes
 
         std::vector<double> Genes {enterBoard,moveToSafeZone,sendEnemyHome,block,
                     moveNormal,move2Star,move2Globe,moveInSafeZone,finishPiece};
-
-
 };
 
 
