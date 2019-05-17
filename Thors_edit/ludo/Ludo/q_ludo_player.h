@@ -37,7 +37,7 @@ private:
 public:
     q_ludo_player();
 
-    void printQTable();
+    void printQTable(int round);
 
     states piece1,piece2,piece3,piece4;
     // 4 Action (move which piece)
