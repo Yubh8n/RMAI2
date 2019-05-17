@@ -6,8 +6,6 @@
 #include "ludo_player_random.h"
 #include "positions_and_dice.h"
 
-#include "q_ludo_player.h"
-
 Q_DECLARE_METATYPE( positions_and_dice )
 
 int main(int argc, char *argv[]){
@@ -17,8 +15,7 @@ int main(int argc, char *argv[]){
 
         //instanciate the players here
         ludo_player p1, p2;
-        ludo_player_random p3;
-        q_ludo_player p4;
+        ludo_player_random p3, p4;
 
         game g;
         g.setGameDelay(1); //if you want to see the game, set a delay
