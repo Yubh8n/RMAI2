@@ -6,9 +6,10 @@
 #include <iostream>
 #include <QtCore>
 #include <QThread>
-
-
 #include "positions_and_dice.h"
+#include "ga_ludo_player.h"
+
+#define games 10
 
 static int global_color = 5;
 
@@ -31,6 +32,9 @@ private:
     void send_them_home(int index);
     void move_start(int fixed_piece);
     int next_turn(unsigned int delay);
+    /*std::vector<double> Wins[4]={0,0,0,0};
+    int gamecounter = 0;*/
+    void print_Winnerrates();
     static void msleep(unsigned long msecs){
         QThread::msleep(msecs);
     }

@@ -4,8 +4,10 @@
 #include <iostream>
 #include "positions_and_dice.h"
 
-#define POPULATION_SIZE 100
-#define VERBOSE true
+#define POPULATION_SIZE 10
+#define VERBOSE false
+#define MAX_GEN 4
+#define MAX_CHROMOSONE_TRAIN_TIME 2
 
 struct Chromosomes
 {
@@ -27,8 +29,6 @@ struct Chromosomes
 
         std::vector<double> Genes {enterBoard,moveToSafeZone,sendEnemyHome,block,
                     moveNormal,move2Star,move2Globe,moveInSafeZone,finishPiece};
-
-
 };
 
 
@@ -40,10 +40,12 @@ private:
     int dice_roll;
     int make_decision();
     std::vector<Chromosomes> population;
-
+    std::vector<int> wins;
+    std::vector<double> win_rate(Chromosomes);
 public:
     ga_ludo_player();
     std::vector<Chromosomes> initialPopulation();
+    void printPopulationGenes();
 
 signals:
     void select_piece(int);
