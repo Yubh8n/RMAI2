@@ -9,6 +9,7 @@
 
 
 #include "positions_and_dice.h"
+#include "ga_ludo_player.h"
 
 static int global_color = 5;
 

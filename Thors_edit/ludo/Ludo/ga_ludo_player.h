@@ -4,8 +4,10 @@
 #include <iostream>
 #include "positions_and_dice.h"
 
-#define POPULATION_SIZE 100
+#define POPULATION_SIZE 10
 #define VERBOSE false
+#define MAX_GEN 4
+#define MAX_CHROMOSONE_TRAIN_TIME 2
 
 struct Chromosomes
 {
@@ -44,6 +46,7 @@ private:
 public:
     ga_ludo_player();
     std::vector<Chromosomes> initialPopulation();
+    void printPopulationGenes();
 
 signals:
     void select_piece(int);

@@ -55,15 +55,19 @@ int main(int argc, char *argv[]){
         QObject::connect(&g, SIGNAL(set_color(int)), &w, SLOT(get_color(int)));
         QObject::connect(&g, SIGNAL(set_dice_result(int)), &w, SLOT(get_dice_result(int)));
         QObject::connect(&g, SIGNAL(declare_winner(int)), &w, SLOT(get_winner(int)));
-        /w.show();
+        w.show();
         //*/
 
 
         g.start();
+        std::cout<<"test"<<std::endl;
         a.exec();
         g.reset();
 
-        return 0;
-    }
+        std::cout<<"prebreak"<<std::endl;
 
+
+
+     }
+    return 0;
 }
