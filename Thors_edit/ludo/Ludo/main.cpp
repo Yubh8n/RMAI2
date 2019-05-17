@@ -4,10 +4,8 @@
 #include <vector>
 #include "ludo_player.h"
 #include "ludo_player_random.h"
-#include "positions_and_dice.h"
-
-#include "q_ludo_player.h"
 #include "ga_ludo_player.h"
+#include "positions_and_dice.h"
 
 Q_DECLARE_METATYPE( positions_and_dice )
 
@@ -23,7 +21,7 @@ int main(int argc, char *argv[]){
         //q_ludo_player p4;
 
         game g;
-        g.setGameDelay(1); //if you want to see the game, set a delay
+        g.setGameDelay(0); //if you want to see the game, set a delay
 
         //set up for each player
         QObject::connect(&g, SIGNAL(player1_start(positions_and_dice)), &p1, SLOT(start_turn(positions_and_dice)));
@@ -50,19 +48,22 @@ int main(int argc, char *argv[]){
                          SLOT(post_game_analysis(std::vector < int > )));
         QObject::connect(&p4, SIGNAL(turn_complete(bool)), &g, SLOT(turnComplete(bool)));
 
-        //* add a GUI
+        /* add a GUI
         Dialog w;
         QObject::connect(&g, SIGNAL(update_graphics(std::vector < int > )), &w,
                          SLOT(update_graphics(std::vector < int > )));
         QObject::connect(&g, SIGNAL(set_color(int)), &w, SLOT(get_color(int)));
         QObject::connect(&g, SIGNAL(set_dice_result(int)), &w, SLOT(get_dice_result(int)));
         QObject::connect(&g, SIGNAL(declare_winner(int)), &w, SLOT(get_winner(int)));
-        w.show();
+        /w.show();
         //*/
 
 
         g.start();
-        return a.exec();
+        a.exec();
+        g.reset();
+
+        return 0;
     }
 
 }
