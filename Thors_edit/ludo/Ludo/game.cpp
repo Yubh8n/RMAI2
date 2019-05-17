@@ -233,33 +233,13 @@ void game::turnComplete(bool win){
 
 void game::run() {
     if(DEBUG) std::cout << "color:     relative pos => fixed\n";
-    static int gameCnt = 0;
-    static int genCnt = 0;
-
-    for (int i = 0;i <MAX_GEN;i++) {
-        genCnt+=1;
-        for(int k = 0; k<POPULATION_SIZE; k++){
-            for(int j = 0;j<MAX_CHROMOSONE_TRAIN_TIME;j++) {
-                while(!game_complete){
-                    if(turn_complete){
-                        turn_complete = false;
-                        msleep(game_delay/4);
-                        next_turn(game_delay - game_delay/4);
-                    }
-                }
-                gameCnt +=1;
-                reset();
-            }
-        //reset();
+    while(!game_complete){
+        if(turn_complete){
+            turn_complete = false;
+            msleep(game_delay/4);
+            next_turn(game_delay - game_delay/4);
         }
-    //reset();
-    }
-    if(VERBOSE == true){
-        std::cout<<"Generations:\t"<<genCnt<<std::endl;
-        std::cout<<"Chromosomes trained each:\t"<<MAX_CHROMOSONE_TRAIN_TIME<<std::endl;
-        std::cout<<"Games played total:\t"<<gameCnt<<std::endl;
     }
     emit close();
     QThread::exit();
-    //terminate();
 }

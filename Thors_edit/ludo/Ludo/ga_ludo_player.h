@@ -8,6 +8,11 @@
 #define VERBOSE false
 #define MAX_GEN 4
 #define MAX_CHROMOSONE_TRAIN_TIME 2
+#define GOAL 99
+#define HOME -1
+#define FIRST_IN_GOAL_STRETCH 51
+
+// First in goal strech = 51
 
 struct Chromosomes
 {
@@ -41,12 +46,14 @@ private:
     std::vector<int> pos_end_of_turn;
     int dice_roll;
     int make_decision();
-    std::vector<Chromosomes> population;
+    std::vector<Chromosomes> population;        //Contains the population
 
 public:
     ga_ludo_player();
     std::vector<Chromosomes> initialPopulation();
     void printPopulationGenes();
+    void printAvailableActions(std::vector<std::vector<bool>> actions);
+    std::vector<std::vector<bool>> checkoutBoard();
 
 signals:
     void select_piece(int);
