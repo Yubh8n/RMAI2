@@ -54,21 +54,25 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../Ludo/main.cpp \
 		../Ludo/dialog.cpp \
+		../Ludo/ga_ludo_player.cpp \
 		../Ludo/game.cpp \
 		../Ludo/ludo_player.cpp \
 		../Ludo/ludo_player_random.cpp \
 		../Ludo/q_ludo_player.cpp moc_dialog.cpp \
+		moc_ga_ludo_player.cpp \
 		moc_game.cpp \
 		moc_ludo_player.cpp \
 		moc_ludo_player_random.cpp \
 		moc_q_ludo_player.cpp
 OBJECTS       = main.o \
 		dialog.o \
+		ga_ludo_player.o \
 		game.o \
 		ludo_player.o \
 		ludo_player_random.o \
 		q_ludo_player.o \
 		moc_dialog.o \
+		moc_ga_ludo_player.o \
 		moc_game.o \
 		moc_ludo_player.o \
 		moc_ludo_player_random.o \
@@ -267,12 +271,14 @@ DIST          = /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/yacc.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/lex.prf \
 		../Ludo/Ludo.pro ../Ludo/dialog.h \
+		../Ludo/ga_ludo_player.h \
 		../Ludo/game.h \
 		../Ludo/ludo_player.h \
 		../Ludo/positions_and_dice.h \
 		../Ludo/ludo_player_random.h \
 		../Ludo/q_ludo_player.h ../Ludo/main.cpp \
 		../Ludo/dialog.cpp \
+		../Ludo/ga_ludo_player.cpp \
 		../Ludo/game.cpp \
 		../Ludo/ludo_player.cpp \
 		../Ludo/ludo_player_random.cpp \
@@ -698,8 +704,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Ludo/dialog.h ../Ludo/game.h ../Ludo/ludo_player.h ../Ludo/positions_and_dice.h ../Ludo/ludo_player_random.h ../Ludo/q_ludo_player.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Ludo/main.cpp ../Ludo/dialog.cpp ../Ludo/game.cpp ../Ludo/ludo_player.cpp ../Ludo/ludo_player_random.cpp ../Ludo/q_ludo_player.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Ludo/dialog.h ../Ludo/ga_ludo_player.h ../Ludo/game.h ../Ludo/ludo_player.h ../Ludo/positions_and_dice.h ../Ludo/ludo_player_random.h ../Ludo/q_ludo_player.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Ludo/main.cpp ../Ludo/dialog.cpp ../Ludo/ga_ludo_player.cpp ../Ludo/game.cpp ../Ludo/ludo_player.cpp ../Ludo/ludo_player_random.cpp ../Ludo/q_ludo_player.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Ludo/dialog.ui $(DISTDIR)/
 
 
@@ -732,9 +738,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -std=c++11 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Wunused -g -Wall -W -dM -E -o moc_predefs.h /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_dialog.cpp moc_game.cpp moc_ludo_player.cpp moc_ludo_player_random.cpp moc_q_ludo_player.cpp
+compiler_moc_header_make_all: moc_dialog.cpp moc_ga_ludo_player.cpp moc_game.cpp moc_ludo_player.cpp moc_ludo_player_random.cpp moc_q_ludo_player.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_dialog.cpp moc_game.cpp moc_ludo_player.cpp moc_ludo_player_random.cpp moc_q_ludo_player.cpp
+	-$(DEL_FILE) moc_dialog.cpp moc_ga_ludo_player.cpp moc_game.cpp moc_ludo_player.cpp moc_ludo_player_random.cpp moc_q_ludo_player.cpp
 moc_dialog.cpp: ../Ludo/dialog.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/QDialog \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qdialog.h \
@@ -1073,6 +1079,62 @@ moc_dialog.cpp: ../Ludo/dialog.h \
 		moc_predefs.h \
 		/home/tgj/Qt/5.12.3/gcc_64/bin/moc
 	/home/tgj/Qt/5.12.3/gcc_64/bin/moc $(DEFINES) --include /home/tgj/Documents/code/chris_AI/RMAI2/Thors_edit/ludo/build-Ludo-Desktop_Qt_5_12_3_GCC_64bit-Debug/moc_predefs.h -I/home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++ -I/home/tgj/Documents/code/chris_AI/RMAI2/Thors_edit/ludo/Ludo -I/home/tgj/Qt/5.12.3/gcc_64/include -I/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets -I/home/tgj/Qt/5.12.3/gcc_64/include/QtGui -I/home/tgj/Qt/5.12.3/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Ludo/dialog.h -o moc_dialog.cpp
+
+moc_ga_ludo_player.cpp: ../Ludo/ga_ludo_player.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/QObject \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobject.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qnamespace.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qglobal.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qconfig.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qtcore-config.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qsysinfo.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qlogging.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qflags.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qmutex.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qnumeric.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qversiontagging.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstring.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qchar.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qbytearray.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qrefcount.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qarraydata.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringliteral.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringview.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qlist.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qalgorithms.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qiterator.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qpair.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringlist.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qregexp.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qcoreevent.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qmetatype.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobject_impl.h \
+		../Ludo/positions_and_dice.h \
+		moc_predefs.h \
+		/home/tgj/Qt/5.12.3/gcc_64/bin/moc
+	/home/tgj/Qt/5.12.3/gcc_64/bin/moc $(DEFINES) --include /home/tgj/Documents/code/chris_AI/RMAI2/Thors_edit/ludo/build-Ludo-Desktop_Qt_5_12_3_GCC_64bit-Debug/moc_predefs.h -I/home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++ -I/home/tgj/Documents/code/chris_AI/RMAI2/Thors_edit/ludo/Ludo -I/home/tgj/Qt/5.12.3/gcc_64/include -I/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets -I/home/tgj/Qt/5.12.3/gcc_64/include/QtGui -I/home/tgj/Qt/5.12.3/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Ludo/ga_ludo_player.h -o moc_ga_ludo_player.cpp
 
 moc_game.cpp: ../Ludo/game.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/QtCore \
@@ -1803,7 +1865,8 @@ main.o: ../Ludo/main.cpp ../Ludo/dialog.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../Ludo/ludo_player.h \
 		../Ludo/ludo_player_random.h \
-		../Ludo/q_ludo_player.h
+		../Ludo/q_ludo_player.h \
+		../Ludo/ga_ludo_player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Ludo/main.cpp
 
 dialog.o: ../Ludo/dialog.cpp ../Ludo/dialog.h \
@@ -2157,6 +2220,60 @@ dialog.o: ../Ludo/dialog.cpp ../Ludo/dialog.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qlayoutitem.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialog.o ../Ludo/dialog.cpp
+
+ga_ludo_player.o: ../Ludo/ga_ludo_player.cpp ../Ludo/ga_ludo_player.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/QObject \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobject.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qnamespace.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qglobal.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qconfig.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qtcore-config.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qsysinfo.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qlogging.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qflags.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qmutex.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qnumeric.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qversiontagging.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstring.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qchar.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qbytearray.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qrefcount.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qarraydata.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringliteral.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringview.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qlist.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qalgorithms.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qiterator.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qpair.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringlist.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qregexp.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qcoreevent.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qmetatype.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/qobject_impl.h \
+		../Ludo/positions_and_dice.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ga_ludo_player.o ../Ludo/ga_ludo_player.cpp
 
 game.o: ../Ludo/game.cpp ../Ludo/game.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/QtCore \
@@ -2520,6 +2637,9 @@ q_ludo_player.o: ../Ludo/q_ludo_player.cpp ../Ludo/q_ludo_player.h \
 
 moc_dialog.o: moc_dialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialog.o moc_dialog.cpp
+
+moc_ga_ludo_player.o: moc_ga_ludo_player.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ga_ludo_player.o moc_ga_ludo_player.cpp
 
 moc_game.o: moc_game.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_game.o moc_game.cpp
