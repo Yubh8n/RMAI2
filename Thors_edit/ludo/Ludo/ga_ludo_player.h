@@ -1,10 +1,36 @@
 #ifndef GA_LUDO_PLAYER_H
 #define GA_LUDO_PLAYER_H
-
-
 #include <QObject>
 #include <iostream>
 #include "positions_and_dice.h"
+
+#define POPULATION_SIZE 100
+#define VERBOSE true
+
+struct Chromosomes
+{
+    Chromosomes() {}
+
+    // Adds a many GENES as thinkable for the ludo player.
+    /*
+     * 16/5-2019
+     * */
+        double enterBoard    = 0.0;
+        double moveToSafeZone= 0.0;
+        double sendEnemyHome = 0.0;
+        double block         = 0.0;
+        double moveNormal    = 0.0;
+        double move2Star     = 0.0;
+        double move2Globe    = 0.0;
+        double moveInSafeZone= 0.0;
+        double finishPiece   = 0.0;
+
+        std::vector<double> Genes {enterBoard,moveToSafeZone,sendEnemyHome,block,
+                    moveNormal,move2Star,move2Globe,moveInSafeZone,finishPiece};
+
+
+};
+
 
 class ga_ludo_player : public QObject {
     Q_OBJECT
@@ -13,8 +39,12 @@ private:
     std::vector<int> pos_end_of_turn;
     int dice_roll;
     int make_decision();
+    std::vector<Chromosomes> population;
+
 public:
     ga_ludo_player();
+    std::vector<Chromosomes> initialPopulation();
+
 signals:
     void select_piece(int);
     void turn_complete(bool);

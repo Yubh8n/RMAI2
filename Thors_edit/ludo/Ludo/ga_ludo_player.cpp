@@ -22,8 +22,26 @@ std::vector<std::vector<double>> randomize(std::vector<std::vector<double>> chro
 
     return temp;
 }
+std::vector<Chromosomes> ga_ludo_player::initialPopulation(){
+    std::vector<Chromosomes> populationHolder;
+    for (int i =0; i<POPULATION_SIZE; i++) {
+        populationHolder.push_back(Chromosomes());
+    }
+    return populationHolder;
+}
 
 int ga_ludo_player::make_decision(){
+
+    static int drawCnt = 0;
+    drawCnt ++;
+    if(drawCnt == 1){
+        population = initialPopulation();
+        if(VERBOSE == true){
+            std::cout<<"Population size:\t"<<population.size()<<std::endl;
+            std::cout<<"Gene lenght:\t"<<population[0].Genes.size()<<std::endl;
+        }
+    }
+
 
     if(dice_roll == 6){
         for(int i = 0; i < 4; ++i){
