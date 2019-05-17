@@ -5,7 +5,7 @@
 #include "positions_and_dice.h"
 
 #define POPULATION_SIZE 100
-#define VERBOSE true
+#define VERBOSE false
 
 struct Chromosomes
 {
