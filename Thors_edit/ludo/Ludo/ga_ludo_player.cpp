@@ -26,6 +26,7 @@ int ga_ludo_player::make_decision(){
     }
 
 
+
     if(dice_roll == 6){
         for(int i = 0; i < 4; ++i){
             if(pos_start_of_turn[i]<0){
