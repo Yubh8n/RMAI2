@@ -57,6 +57,7 @@ public:
     void printPopulationGenes();
     void printAvailableActions(std::vector<std::vector<bool>> actions);
     std::vector<std::vector<bool>> checkoutBoard();
+    int choosePiece(std::vector<std::vector<bool>> moves, int ChromosomeNr);
 
 signals:
     void select_piece(int);

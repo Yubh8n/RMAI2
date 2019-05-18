@@ -44,6 +44,7 @@ void ga_ludo_player::printPopulationGenes(){
  * The matrix will be ActionsXpieces -> ActionsX4
  */
 std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
+    /* This sections create the matrix of the possible moves */
     std::vector<bool> tmp;
     std::vector<std::vector<bool>> moves;
     for (int i = 0;i<4;i++) {
@@ -53,7 +54,6 @@ std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
         moves.push_back(tmp);
         tmp.clear();
     }
-    //std::vector<std::vector<bool>> moves ={{false,false,false,false,false,false,false,false,false},{false,false,false,false,false,false,false,false,false},{false,false,false,false,false,false,false,false,false},{false,false,false,false,false,false,false,false,false}};
 
     /*****************************
           looking at board
@@ -138,6 +138,44 @@ void ga_ludo_player::printAvailableActions(std::vector<std::vector<bool>> action
             std::cout<<std::endl;
     }
 }
+int ga_ludo_player::choosePiece(std::vector<std::vector<bool> > moves,int ChromosomeNr){
+    std::vector<int> candidates;        //Candidate holder
+    for (int piece = 0; piece < moves.size(); ++piece) {            // Loop pieces
+        for (int action = 0; action < moves[0].size(); ++action) {  // Loop actions
+            //Find max value gene if the move is allowed
+            int tmpAction = 0;
+            int tmpPiece = 0;
+            // Comparison of the boolean action matrix and the Gene-value
+            if(moves[piece][action]==true && population[0].Genes[action]>tmpAction){
+                tmpAction =population[0].Genes[action];
+                std::cout<<"tmpAction "<<tmpAction<<std::endl;
+
+                /*
+                auto it = std::max_element(std::begin(population[0].Genes),std::end(population[0].Genes));  //Pointer iterator for finding max
+                //std::cout<<"MAX"<<*it<<std::endl;
+                ptrdiff_t pos = std::find(population[0].Genes.begin(),population[0].Genes.end(), *it)-population[0].Genes.begin(); //Finding position for the max-pointer
+                std::cout<<"pos "<<pos<<std::endl;
+
+                std::cout<<"High score"<<piece<<std::endl;
+                */
+
+                candidates.push_back(piece);
+            }
+        }
+    }
+    if(candidates.size()==0){   // Return "void" answer as to which piece
+        return -1;
+    }
+    if(candidates.size()==1){   // Choise The only candidate there is
+        return candidates[0];
+    }
+    if(candidates.size()>1){    // Choice a random candidate of those who scored equally
+        std::random_shuffle(candidates.begin(),candidates.end());
+        int choice = *candidates.begin();
+        return choice;
+    }
+
+}
 int ga_ludo_player::make_decision(){
 
     static int drawCnt = 0;
@@ -153,7 +191,7 @@ int ga_ludo_player::make_decision(){
     }
     std::vector<std::vector<bool>> moves = checkoutBoard();
     printAvailableActions(moves);
-
+    /*
     //std::cout<<"size of pos_start"<<pos_start_of_turn.size()<<std::endl;
     std::cout<<"pos_start[0]"<<pos_start_of_turn[0]<<std::endl;
     std::cout<<"pos_start[1]"<<pos_start_of_turn[1]<<std::endl;
@@ -175,8 +213,10 @@ int ga_ludo_player::make_decision(){
     std::cout<<"dice roll"<<dice_roll<<std::endl;
     std::cout<<std::endl;
     */
-
-
+    int chromosomeNr; //Variable to keep know which chromosome is being tested - Shoudl propaly be a private member for the class.
+    int piece = choosePiece(moves,chromosomeNr);
+    std::cout<<"Piece Choosen "<<piece<<std::endl;
+    /*
     if(dice_roll == 6){
         for(int i = 0; i < 4; ++i){
             if(pos_start_of_turn[i]<0){
@@ -199,8 +239,8 @@ int ga_ludo_player::make_decision(){
                 return i;
             }
         }
-    }
-    return -1;
+    }*/
+    return piece;
 }
 
 void ga_ludo_player::start_turn(positions_and_dice relative){
