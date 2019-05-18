@@ -9,6 +9,14 @@
 #define MAX_GEN 4
 #define MAX_CHROMOSONE_TRAIN_TIME 2
 
+
+#define SAFE 99
+#define HOME -1
+#define FIRST_ON_BOARD 0
+#define LAST_ON_BOARD 56
+#define FIRST_IN_GOAL_STRETCH 51
+#define ACTIONS 9
+
 struct Chromosomes
 {
     Chromosomes() {}
@@ -47,6 +55,8 @@ public:
     ga_ludo_player();
     std::vector<Chromosomes> initialPopulation();
     void printPopulationGenes();
+    void printAvailableActions(std::vector<std::vector<bool>> actions);
+    std::vector<std::vector<bool>> checkoutBoard();
 
 signals:
     void select_piece(int);

@@ -254,10 +254,11 @@ void game::run() {
         }
     //reset();
     }
-    if(VERBOSE == true){
-        std::cout<<"Generations:\t"<<genCnt<<std::endl;
+    if(true){
+        setGameDelay(5);
+        std::cout<<std::endl<<"Generations:\t\t\t"<<genCnt<<std::endl;
         std::cout<<"Chromosomes trained each:\t"<<MAX_CHROMOSONE_TRAIN_TIME<<std::endl;
-        std::cout<<"Games played total:\t"<<gameCnt<<std::endl;
+        std::cout<<"total iterations:\t\t\t"<<gameCnt<<std::endl;
     }
     emit close();
     QThread::exit();
