@@ -1,1 +1,15 @@
 build/*
+
+Thors_edit/ludo/Ludo/dialog\.o
+
+Thors_edit/ludo/Ludo/ga_ludo_player\.o
+
+Thors_edit/ludo/Ludo/game\.o
+
+Thors_edit/ludo/Ludo/main\.o
+
+Thors_edit/ludo/Ludo/moc_dialog\.o
+
+Thors_edit/ludo/Ludo/moc_ga_ludo_player\.o
+
+*.o

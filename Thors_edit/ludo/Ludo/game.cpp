@@ -268,6 +268,8 @@ void game::run() {
     static int gameCnt = 0;
     static int genCnt = 0;
 
+    GA->ChromosomeNr =0;        // Counter used for keeping track of the ChromosomeNr;
+
     for (int i = 0;i <MAX_GEN;i++) {
         genCnt+=1;
         for(int k = 0; k<POPULATION_SIZE; k++){

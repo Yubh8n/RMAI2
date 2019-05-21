@@ -63,6 +63,8 @@ public:
     void print_best_chromozone();
     std::vector<std::vector<bool>> checkoutBoard();
     int choosePiece(std::vector<std::vector<bool>> moves, int ChromosomeNr);
+    int ChromosomeNr;
+
 
 signals:
     void select_piece(int);
