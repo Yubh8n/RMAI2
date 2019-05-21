@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
 
 
 
-        g.setGameDelay(0); //if you want to see the game, set a delay
+        g.setGameDelay(2000); //if you want to see the game, set a delay
         //set up for each player
         QObject::connect(&g, SIGNAL(player1_start(positions_and_dice)), &p1, SLOT(start_turn(positions_and_dice)));
         QObject::connect(&p1, SIGNAL(select_piece(int)), &g, SLOT(movePiece(int)));
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
         QObject::connect(&g, SIGNAL(player4_end(std::vector < int > )), &p4,SLOT(post_game_analysis(std::vector < int > )));
         QObject::connect(&p4, SIGNAL(turn_complete(bool)), &g, SLOT(turnComplete(bool)));
 
-        /* add a GUI
+        //* add a GUI
         Dialog w;
         QObject::connect(&g, SIGNAL(update_graphics(std::vector < int > )), &w,
                          SLOT(update_graphics(std::vector < int > )));

@@ -60,6 +60,7 @@ std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
       *****************************/
     for(int pieces = 0; pieces <4 ; pieces++){  // Lookign through each players possible moves
         int index = 0;
+        std::vector<int> enemiesAtSamePos;
         if(pos_start_of_turn[pieces]!= SAFE){   // Check if piece is in goal
             index = pos_start_of_turn[pieces]+dice_roll;
             if((dice_roll == 6)&&(pos_start_of_turn[pieces]==HOME)){
@@ -67,27 +68,33 @@ std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
                 moves[pieces][0]=1;
             }
             // Move to safe zone/ goal stretch
-            if(pos_start_of_turn[pieces]+dice_roll == FIRST_IN_GOAL_STRETCH ){
+            if(pos_start_of_turn[pieces]+dice_roll >= FIRST_IN_GOAL_STRETCH && index < LAST_ON_BOARD){
                 moves[pieces][1]= true;
-                //moveToSafeZoneCounter+=1;
             }
 
-            // SendEnemyHome
-            for( int enemyPiece = 4; enemyPiece < pos_start_of_turn.size(); enemyPiece++) //Loop over enemies
-                if(pos_start_of_turn[pieces] + dice_roll == pos_start_of_turn[enemyPiece] ){
+            // SendEnemyHome && Self home
+            for(int enemyPiece = 4; enemyPiece < pos_start_of_turn.size(); enemyPiece++){ //Loop over enemies
+                if((index == pos_start_of_turn[enemyPiece]) && (pos_start_of_turn[pieces] != HOME )){
                     moves[pieces][2]= true;
-                    //sendEnemyHomeCounter+=1;
                 }
 
+            // Self home P1
+                if(index == pos_start_of_turn[enemyPiece]){
+                    enemiesAtSamePos.push_back(enemyPiece);
+                }
+            }
+            // Self home P2
+            if(enemiesAtSamePos.size()>1){
+                moves[pieces][10] = true;
+            }
             // Block with friend
             for (int i = 0; i < 4; ++i) {
-                if(pos_start_of_turn[pieces]+dice_roll ==pos_start_of_turn[i] && pos_start_of_turn[pieces] !=-1){
+                if(pos_start_of_turn[pieces]+dice_roll ==pos_start_of_turn[i] && pos_start_of_turn[pieces] !=HOME){
                     moves[pieces][3]= true;
-                //blockCounter+=1;
                     }
             }
             // moveNormal forward, !! Tjek der ikke står 2 brikker !!
-            if(pos_start_of_turn[pieces]+dice_roll< FIRST_IN_GOAL_STRETCH && pos_start_of_turn[pieces] !=-1 ){
+            if(pos_start_of_turn[pieces] != HOME && index != SAFE){
                 moves[pieces][4]= true;
                 //moveNormalCounter+=1;
             }
@@ -104,13 +111,14 @@ std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
                  moves[pieces][5]= true;
                  //move2StarCounter+=1;
             }
-            // Move onto globe - using index instead of Piece vector container
-            if(index < FIRST_ON_BOARD && pos_start_of_turn[pieces] !=-1){     //check only the indexes on the board, not in the home streatch
-                if(index % 13 == 0 || (index - 8) % 13 == 0){  //doesn't check for more people at same spot
+            // Move onto globe - using index instead of Piece vector container            
+            if((index == 8 ||
+                index == 21 ||
+                index == 34 ||
+                    index== 47)&& (pos_start_of_turn[pieces] !=-1)){  //doesn't check for more people at same spot
                     moves[pieces][6]= true;
-                    //move2GlobeCounter+=1;
-                }
             }
+
             // Move in Safe zone
             if(pos_start_of_turn[pieces] >= FIRST_IN_GOAL_STRETCH  ){
                 moves[pieces][7]= true;
@@ -121,6 +129,13 @@ std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
                 moves[pieces][8]= true;
                 //finishPieceCounter+=1;
             }
+            // Anorther players home
+
+            if( index == 13 ||
+                index == 26 ||
+                    index == 39){
+                moves[pieces][9] = true;
+            }
         }
 
     }
@@ -128,12 +143,17 @@ std::vector<std::vector<bool>> ga_ludo_player::checkoutBoard(){
 
 }
 void ga_ludo_player::printAvailableActions(std::vector<std::vector<bool>> actions){
-    std::cout<<"\tEnter\tMove2Safe\tJmp2Enemy\tBlock\tMvNormal\tMv2star\tMv2Globe\tMvINsafe\tFinishP"<<std::endl;
+    std::cout<<"\tEnter\tMove2Safe\tJmp2Enemy\tBlock\tMvNormal\tMv2star\tMv2Globe\tMvINsafe\tFinishP\tEnemysHome\tSelfhome"<<std::endl;
     for (int pieces = 0; pieces < actions.size(); ++pieces) {
             std::cout<<"Piece "<<pieces<<" :\t";
             for (int i = 0; i< actions[pieces].size() ;i++) {
+                if(actions[pieces][i] == 1){
+                    std::cout<<population[0].Genes[i]<<"\t";
+                }
+                else {
+                    std::cout<<actions[pieces][i]<<"\t";
+                }
 
-                std::cout<<actions[pieces][i]<<"\t";
             }
             std::cout<<std::endl;
     }
@@ -146,8 +166,8 @@ int ga_ludo_player::choosePiece(std::vector<std::vector<bool> > moves, int Chrom
             int tmpAction = 0;
             int tmpPiece = 0;
             // Comparison of the boolean action matrix and the Gene-value
-            if(moves[piece][action]==true && population[0].Genes[action]>tmpAction){
-                tmpAction =population[0].Genes[action];
+            if(moves[piece][action]==true && population[ChromosomeNr].Genes[action]>tmpAction){
+                tmpAction =population[ChromosomeNr].Genes[action];
                 //std::cout<<"tmpAction "<<tmpAction<<std::endl;
 
                 /*
@@ -187,11 +207,13 @@ int ga_ludo_player::make_decision(){
             std::cout<<"Population size:\t"<<population.size()<<std::endl;
             std::cout<<"Gene lenght:\t"<<population[0].Genes.size()<<std::endl;
         }
-    //printPopulationGenes();
+    printPopulationGenes();
     }
-    std::vector<std::vector<bool>> moves = checkoutBoard();
-    //printAvailableActions(moves);
 
+
+    std::vector<std::vector<bool>> moves = checkoutBoard();
+    printAvailableActions(moves);
+    std::cout<<"Dice "<<dice_roll<<std::endl;
 
 
     /*
@@ -219,7 +241,7 @@ int ga_ludo_player::make_decision(){
 
     int piece = choosePiece(moves,ChromosomeNr);
     //std::cout<<"Chromo # "<<ChromosomeNr<<std::endl;
-    //std::cout<<"Piece Choosen "<<piece<<std::endl;
+    std::cout<<"Piece Choosen "<<piece<<std::endl;
 
     return piece;
 }
