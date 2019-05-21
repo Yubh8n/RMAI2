@@ -6,8 +6,8 @@
 
 #define POPULATION_SIZE 10
 #define VERBOSE false
-#define MAX_GEN 4
-#define MAX_CHROMOSONE_TRAIN_TIME 2
+#define MAX_GEN 10
+#define gamesPrChromozone 10
 
 
 #define SAFE 99
@@ -34,11 +34,10 @@ struct Chromosomes
         double move2Globe    = 0.0;
         double moveInSafeZone= 0.0;
         double finishPiece   = 0.0;
+        double fitness       = 0.0;
 
         std::vector<double> Genes {enterBoard,moveToSafeZone,sendEnemyHome,block,
                     moveNormal,move2Star,move2Globe,moveInSafeZone,finishPiece};
-
-
 };
 
 
@@ -49,13 +48,19 @@ private:
     std::vector<int> pos_end_of_turn;
     int dice_roll;
     int make_decision();
+    Chromosomes choose_best();
     std::vector<Chromosomes> population;
 
 public:
     ga_ludo_player();
+    void updatePopulation();
+    void mutate_population(float mutation_rate, float Mutation_probability);
+    std::vector<float> fitness;
     std::vector<Chromosomes> initialPopulation();
     void printPopulationGenes();
     void printAvailableActions(std::vector<std::vector<bool>> actions);
+    void set_fitness(std::vector<float> wins);
+    void print_best_chromozone();
     std::vector<std::vector<bool>> checkoutBoard();
     int choosePiece(std::vector<std::vector<bool>> moves, int ChromosomeNr);
 

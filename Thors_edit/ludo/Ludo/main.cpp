@@ -16,39 +16,40 @@ int main(int argc, char *argv[]){
 
         //instanciate the players here
         ga_ludo_player p1;
+        ga_ludo_player *GA;
+        GA = &p1;
+
         ludo_player p2;
         ludo_player_random p3,p4;
-        //q_ludo_player p4;
 
-        game g;
-        g.setGameDelay(1000); //if you want to see the game, set a delay
 
+        game g(GA);
+
+
+
+        g.setGameDelay(0); //if you want to see the game, set a delay
         //set up for each player
         QObject::connect(&g, SIGNAL(player1_start(positions_and_dice)), &p1, SLOT(start_turn(positions_and_dice)));
         QObject::connect(&p1, SIGNAL(select_piece(int)), &g, SLOT(movePiece(int)));
-        QObject::connect(&g, SIGNAL(player1_end(std::vector < int > )), &p1,
-                         SLOT(post_game_analysis(std::vector < int > )));
+        QObject::connect(&g, SIGNAL(player1_end(std::vector < int > )), &p1, SLOT(post_game_analysis(std::vector < int > )));
         QObject::connect(&p1, SIGNAL(turn_complete(bool)), &g, SLOT(turnComplete(bool)));
 
         QObject::connect(&g, SIGNAL(player2_start(positions_and_dice)), &p2, SLOT(start_turn(positions_and_dice)));
         QObject::connect(&p2, SIGNAL(select_piece(int)), &g, SLOT(movePiece(int)));
-        QObject::connect(&g, SIGNAL(player2_end(std::vector < int > )), &p2,
-                         SLOT(post_game_analysis(std::vector < int > )));
+        QObject::connect(&g, SIGNAL(player2_end(std::vector < int > )), &p2, SLOT(post_game_analysis(std::vector < int > )));
         QObject::connect(&p2, SIGNAL(turn_complete(bool)), &g, SLOT(turnComplete(bool)));
 
         QObject::connect(&g, SIGNAL(player3_start(positions_and_dice)), &p3, SLOT(start_turn(positions_and_dice)));
         QObject::connect(&p3, SIGNAL(select_piece(int)), &g, SLOT(movePiece(int)));
-        QObject::connect(&g, SIGNAL(player3_end(std::vector < int > )), &p3,
-                         SLOT(post_game_analysis(std::vector < int > )));
+        QObject::connect(&g, SIGNAL(player3_end(std::vector < int > )), &p3,SLOT(post_game_analysis(std::vector < int > )));
         QObject::connect(&p3, SIGNAL(turn_complete(bool)), &g, SLOT(turnComplete(bool)));
 
         QObject::connect(&g, SIGNAL(player4_start(positions_and_dice)), &p4, SLOT(start_turn(positions_and_dice)));
         QObject::connect(&p4, SIGNAL(select_piece(int)), &g, SLOT(movePiece(int)));
-        QObject::connect(&g, SIGNAL(player4_end(std::vector < int > )), &p4,
-                         SLOT(post_game_analysis(std::vector < int > )));
+        QObject::connect(&g, SIGNAL(player4_end(std::vector < int > )), &p4,SLOT(post_game_analysis(std::vector < int > )));
         QObject::connect(&p4, SIGNAL(turn_complete(bool)), &g, SLOT(turnComplete(bool)));
 
-        //* add a GUI
+        /* add a GUI
         Dialog w;
         QObject::connect(&g, SIGNAL(update_graphics(std::vector < int > )), &w,
                          SLOT(update_graphics(std::vector < int > )));
@@ -60,7 +61,7 @@ int main(int argc, char *argv[]){
 
 
         g.start();
-        std::cout<<"test"<<std::endl;
+        //std::cout<<"test"<<std::endl;
         a.exec();
         g.reset();
 

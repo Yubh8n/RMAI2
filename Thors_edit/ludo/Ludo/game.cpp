@@ -2,6 +2,7 @@
 #define DEBUG 0
 
 game::game(){
+    fitness.resize(POPULATION_SIZE);
     game_delay = 1000;
     game_complete = false;
     turn_complete = true;
@@ -9,6 +10,18 @@ game::game(){
          player_positions.push_back(-1);
     }
     color = 3;
+}
+
+game::game(ga_ludo_player* player){
+    fitness.resize(POPULATION_SIZE);
+    game_delay = 1000;
+    game_complete = false;
+    turn_complete = true;
+    for(int i = 0; i < 16; ++i){
+         player_positions.push_back(-1);
+    }
+    color = 3;
+    GA = player;
 }
 
 void game::reset(){
@@ -222,16 +235,35 @@ std::vector<int> game::relativePosition(){
     return std::move(relative_positons);
 }
 
+void printWins(std::vector<float> fitness, int gamecnt)
+{
+    for (int i = 0; i<fitness.size(); i++)
+    {
+        std::cout << "win % of chromozone: " << i << " is: " << fitness[i]/gamecnt << std::endl;
+    }
+}
+
 void game::turnComplete(bool win){
     game_complete = win;
     turn_complete = true;
     if(game_complete){
-        std::cout << "player: " << color << " won" << std::endl;
+        //std::cout << "player: " << color << " won" << std::endl;
         emit declare_winner(color);
     }
 }
 
+void get_runtime(std::chrono::milliseconds time, std::string time_format)
+{
+    if (time_format == "sec")
+        std::cout << "time it will take: " << time.count()*(POPULATION_SIZE)*MAX_GEN/1000 << " Seconds" <<std::endl;
+    if (time_format == "min")
+        std::cout << "time it will take: " << time.count()*(POPULATION_SIZE)*MAX_GEN/(1000*60) << " minutes" <<std::endl;
+    if (time_format == "hour")
+        std::cout << "time it will take: " << time.count()*(POPULATION_SIZE)*MAX_GEN/(1000*60*60) << " Hours" <<std::endl;
+}
+
 void game::run() {
+    bool first_run = true;
     if(DEBUG) std::cout << "color:     relative pos => fixed\n";
     static int gameCnt = 0;
     static int genCnt = 0;
@@ -239,7 +271,9 @@ void game::run() {
     for (int i = 0;i <MAX_GEN;i++) {
         genCnt+=1;
         for(int k = 0; k<POPULATION_SIZE; k++){
-            for(int j = 0;j<MAX_CHROMOSONE_TRAIN_TIME;j++) {
+            auto start = std::chrono::high_resolution_clock::now();
+
+            for(int j = 0;j<gamesPrChromozone;j++) {
                 while(!game_complete){
                     if(turn_complete){
                         turn_complete = false;
@@ -247,20 +281,35 @@ void game::run() {
                         next_turn(game_delay - game_delay/4);
                     }
                 }
+                if (color == 0)
+                    fitness[k]++;
                 gameCnt +=1;
                 reset();
+                }
+
+            if (first_run){
+                auto stop = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+                get_runtime(duration, "min");
+                first_run = false;
             }
-        //reset();
         }
-    //reset();
+        //printWins(fitness, gamesPrChromozone);
+        GA->set_fitness(fitness);
+        GA->updatePopulation();
+        GA->mutate_population(0.1, 0.2);
+        GA->print_best_chromozone();
+        fitness.clear();
+        fitness.resize(POPULATION_SIZE);
     }
     if(true){
         setGameDelay(5);
-        std::cout<<std::endl<<"Generations:\t\t\t"<<genCnt<<std::endl;
-        std::cout<<"Chromosomes trained each:\t"<<MAX_CHROMOSONE_TRAIN_TIME<<std::endl;
+        std::cout<<std::endl<<"Population size:\t\t\t"<<POPULATION_SIZE<<std::endl;
+        std::cout<<"Generations:\t\t\t"<<genCnt<<std::endl;
+        std::cout<<"Chromosomes trained each:\t\t\t"<<gamesPrChromozone<<std::endl;
         std::cout<<"total iterations:\t\t\t"<<gameCnt<<std::endl;
     }
     emit close();
     QThread::exit();
-    //terminate();
+    terminate();
 }

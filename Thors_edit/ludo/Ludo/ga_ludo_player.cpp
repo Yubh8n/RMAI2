@@ -148,7 +148,7 @@ int ga_ludo_player::choosePiece(std::vector<std::vector<bool> > moves,int Chromo
             // Comparison of the boolean action matrix and the Gene-value
             if(moves[piece][action]==true && population[0].Genes[action]>tmpAction){
                 tmpAction =population[0].Genes[action];
-                std::cout<<"tmpAction "<<tmpAction<<std::endl;
+                //std::cout<<"tmpAction "<<tmpAction<<std::endl;
 
                 /*
                 auto it = std::max_element(std::begin(population[0].Genes),std::end(population[0].Genes));  //Pointer iterator for finding max
@@ -187,10 +187,13 @@ int ga_ludo_player::make_decision(){
             std::cout<<"Population size:\t"<<population.size()<<std::endl;
             std::cout<<"Gene lenght:\t"<<population[0].Genes.size()<<std::endl;
         }
-    printPopulationGenes();
+    //printPopulationGenes();
     }
     std::vector<std::vector<bool>> moves = checkoutBoard();
-    printAvailableActions(moves);
+    //printAvailableActions(moves);
+
+
+
     /*
     //std::cout<<"size of pos_start"<<pos_start_of_turn.size()<<std::endl;
     std::cout<<"pos_start[0]"<<pos_start_of_turn[0]<<std::endl;
@@ -215,7 +218,7 @@ int ga_ludo_player::make_decision(){
     */
     int chromosomeNr; //Variable to keep know which chromosome is being tested - Shoudl propaly be a private member for the class.
     int piece = choosePiece(moves,chromosomeNr);
-    std::cout<<"Piece Choosen "<<piece<<std::endl;
+    //std::cout<<"Piece Choosen "<<piece<<std::endl;
     /*
     if(dice_roll == 6){
         for(int i = 0; i < 4; ++i){
@@ -243,11 +246,95 @@ int ga_ludo_player::make_decision(){
     return piece;
 }
 
+/*
+ * @brief ga_ludo_player::mutate_population
+ * Mutates the current population with a mutation rate.
+ * This rate should be low, else the GA will turn into a generalized search algorithm.
+ * mutation probability should be between 0 and 1
+*/
+void ga_ludo_player::mutate_population(float mutation_rate, float Mutation_probability)
+{
+
+    for (int i = 0; i < population.size(); i++)
+    {
+        int random_integer = rand()%100;
+        if (random_integer < Mutation_probability*100)
+        {
+            int mutation_gene = rand()%ACTIONS;
+            int mutation_direction = rand()%100;
+
+            if (mutation_direction < 51)
+                mutation_rate = -mutation_rate;
+            std::cout << "mutating chromozone: " << i << " with: " << mutation_rate << std::endl;
+            population[i].Genes[mutation_gene] += mutation_rate;
+
+        }
+    }
+}
+
+void ga_ludo_player::print_best_chromozone()
+{
+    Chromosomes best_chromozone;
+    for (int i = 0; i<population.size(); i++)
+    {
+        if (population[i].fitness > best_chromozone.fitness)
+            best_chromozone = population[i];
+    }
+
+    std::cout << "best chromozone info:\t" << std::endl << std::endl;
+    for (int i = 0; i<best_chromozone.Genes.size(); i++)
+    {
+        std::cout << best_chromozone.Genes[i] << " ";
+    }
+    std::cout << std::endl;
+
+
+}
+
+void ga_ludo_player::updatePopulation()
+{
+    for (int i = 0; i<population.size(); i++)
+    {
+        population[i] = choose_best();
+    }
+}
+
+Chromosomes ga_ludo_player::choose_best()
+{
+    Chromosomes best;
+    std::vector<Chromosomes> candidates;
+
+    for (int j = 0; j<population.size()/2; j++)
+    {
+        int random_integer = rand()%POPULATION_SIZE;
+        candidates.push_back(population[random_integer]);
+    }
+
+    for (int k = 0; k<candidates.size(); k++)
+    {
+        if (candidates[k].fitness > best.fitness)
+            best = candidates[k];
+    }
+
+    std::cout << "best fitness: " << best.fitness << " from a pool of: " << population.size()/2 << " " << std::endl;
+    return best;
+}
+
+
 void ga_ludo_player::start_turn(positions_and_dice relative){
     pos_start_of_turn = relative.pos;
     dice_roll = relative.dice;
     int decision = make_decision();
     emit select_piece(decision);
+}
+
+void ga_ludo_player::set_fitness(std::vector<float> wins)
+{
+    fitness = wins;
+    for (int i = 0; i<fitness.size(); i++)
+    {
+        population[i].fitness = fitness[i]/gamesPrChromozone;
+    }
 }
 
 void ga_ludo_player::post_game_analysis(std::vector<int> relative_pos){
