@@ -138,7 +138,7 @@ void ga_ludo_player::printAvailableActions(std::vector<std::vector<bool>> action
             std::cout<<std::endl;
     }
 }
-int ga_ludo_player::choosePiece(std::vector<std::vector<bool> > moves,int ChromosomeNr){
+int ga_ludo_player::choosePiece(std::vector<std::vector<bool> > moves, int ChromosomeNr){
     std::vector<int> candidates;        //Candidate holder
     for (int piece = 0; piece < moves.size(); ++piece) {            // Loop pieces
         for (int action = 0; action < moves[0].size(); ++action) {  // Loop actions
@@ -266,7 +266,10 @@ void ga_ludo_player::mutate_population(float mutation_rate, float Mutation_proba
             if (mutation_direction < 51)
                 mutation_rate = -mutation_rate;
             std::cout << "mutating chromozone: " << i << " with: " << mutation_rate << std::endl;
-            population[i].Genes[mutation_gene] += mutation_rate;
+            if (population[i].Genes[mutation_gene] + mutation_rate < 1.0)
+                population[i].Genes[mutation_gene] = 1.0;
+            else
+                population[i].Genes[mutation_gene] += mutation_rate;
 
         }
     }
@@ -285,6 +288,7 @@ void ga_ludo_player::print_best_chromozone()
     for (int i = 0; i<best_chromozone.Genes.size(); i++)
     {
         std::cout << best_chromozone.Genes[i] << " ";
+        std::cout << best_chromozone.fitness;
     }
     std::cout << std::endl;
 
@@ -304,7 +308,7 @@ Chromosomes ga_ludo_player::choose_best()
     Chromosomes best;
     std::vector<Chromosomes> candidates;
 
-    for (int j = 0; j<population.size()/2; j++)
+    for (int j = 0; j<population.size(); j++)
     {
         int random_integer = rand()%POPULATION_SIZE;
         candidates.push_back(population[random_integer]);
@@ -316,7 +320,7 @@ Chromosomes ga_ludo_player::choose_best()
             best = candidates[k];
     }
 
-    std::cout << "best fitness: " << best.fitness << " from a pool of: " << population.size()/2 << " " << std::endl;
+    std::cout << "best fitness: " << best.fitness << " from a pool of: " << population.size() << " " << std::endl;
     return best;
 }
 

@@ -294,7 +294,6 @@ void game::run() {
                 first_run = false;
             }
         }
-        //printWins(fitness, gamesPrChromozone);
         GA->set_fitness(fitness);
         GA->updatePopulation();
         GA->mutate_population(0.1, 0.2);
