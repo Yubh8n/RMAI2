@@ -1,5 +1,15 @@
 build/*
 
-Thors_edit/ludo/build-Ludo-Desktop-Debug/
+Thors_edit/ludo/Ludo/dialog\.o
 
-Thors_edit/ludo/Ludo/Ludo\.pro\.user\.7a17bc9\.21
+Thors_edit/ludo/Ludo/ga_ludo_player\.o
+
+Thors_edit/ludo/Ludo/game\.o
+
+Thors_edit/ludo/Ludo/main\.o
+
+Thors_edit/ludo/Ludo/moc_dialog\.o
+
+Thors_edit/ludo/Ludo/moc_ga_ludo_player\.o
+
+*.o

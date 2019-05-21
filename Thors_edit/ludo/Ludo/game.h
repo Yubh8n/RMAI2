@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QtCore>
 #include <QThread>
+#include <chrono>
 
 
 #include "positions_and_dice.h"
@@ -31,10 +32,12 @@ private:
     void send_them_home(int index);
     void move_start(int fixed_piece);
     int next_turn(unsigned int delay);
+    std::vector<float> fitness;
     static void msleep(unsigned long msecs){
         QThread::msleep(msecs);
     }
 public:
+    std::vector<float> get_fitness();
     int color;
     std::vector<int> player_positions;
     void rollDice(){
@@ -45,6 +48,8 @@ public:
     }
     int getDiceRoll() {return dice_result; }
     game();
+    game(ga_ludo_player* player);
+    ga_ludo_player* GA;
     void setGameDelay(unsigned int mili_seconds){ game_delay = mili_seconds; }
     void reset();
 signals:
