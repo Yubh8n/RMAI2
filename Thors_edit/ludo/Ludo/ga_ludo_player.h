@@ -15,7 +15,7 @@
 #define FIRST_ON_BOARD 0
 #define LAST_ON_BOARD 56
 #define FIRST_IN_GOAL_STRETCH 51
-#define ACTIONS 9
+#define ACTIONS 11
 
 struct Chromosomes
 {
@@ -34,10 +34,13 @@ struct Chromosomes
         double move2Globe    = 0.0;
         double moveInSafeZone= 0.0;
         double finishPiece   = 0.0;
+        double enemysHome    = 0.0;
+        double selfHome      = 0.0;
+
         double fitness       = 0.0;
 
         std::vector<double> Genes {enterBoard,moveToSafeZone,sendEnemyHome,block,
-                    moveNormal,move2Star,move2Globe,moveInSafeZone,finishPiece};
+                    moveNormal,move2Star,move2Globe,moveInSafeZone,finishPiece,enemysHome,selfHome};
 };
 
 

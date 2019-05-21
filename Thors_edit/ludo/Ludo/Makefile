@@ -250,6 +250,7 @@ DIST          = /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/qt_config.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/toolchain.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/default_pre.prf \
@@ -466,6 +467,7 @@ Makefile: Ludo.pro /home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++/qmake.conf /home
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/qt_config.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/toolchain.prf \
 		/home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/default_pre.prf \
@@ -663,6 +665,7 @@ Makefile: Ludo.pro /home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++/qmake.conf /home
 /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/qt_config.prf:
 /home/tgj/Qt/5.12.3/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/toolchain.prf:
 /home/tgj/Qt/5.12.3/gcc_64/mkspecs/features/default_pre.prf:
@@ -2203,7 +2206,21 @@ dialog.o: dialog.cpp dialog.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/QGraphicsEllipseItem \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		/home/tgj/Qt/5.12.3/gcc_64/include/QtGui/QPixmap \
-		ui_dialog.h
+		ui_dialog.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtCore/QVariant \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/QApplication \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qapplication.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/QGraphicsView \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/tgj/Qt/5.12.3/gcc_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialog.o dialog.cpp
 
 ga_ludo_player.o: ga_ludo_player.cpp ga_ludo_player.h \
