@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'ludo_player_random.h'
+** Meta object code from reading C++ file 'q_ludo_player.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../Ludo/ludo_player_random.h"
+#include "../Ludo/q_ludo_player.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'ludo_player_random.h' doesn't include <QObject>."
+#error "The header file 'q_ludo_player.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.9.5. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -20,37 +20,37 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_ludo_player_random_t {
+struct qt_meta_stringdata_q_ludo_player_t {
     QByteArrayData data[10];
-    char stringdata0[135];
+    char stringdata0[130];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_ludo_player_random_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_q_ludo_player_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_ludo_player_random_t qt_meta_stringdata_ludo_player_random = {
+static const qt_meta_stringdata_q_ludo_player_t qt_meta_stringdata_q_ludo_player = {
     {
-QT_MOC_LITERAL(0, 0, 18), // "ludo_player_random"
-QT_MOC_LITERAL(1, 19, 12), // "select_piece"
-QT_MOC_LITERAL(2, 32, 0), // ""
-QT_MOC_LITERAL(3, 33, 13), // "turn_complete"
-QT_MOC_LITERAL(4, 47, 10), // "start_turn"
-QT_MOC_LITERAL(5, 58, 18), // "positions_and_dice"
-QT_MOC_LITERAL(6, 77, 8), // "relative"
-QT_MOC_LITERAL(7, 86, 18), // "post_game_analysis"
-QT_MOC_LITERAL(8, 105, 16), // "std::vector<int>"
-QT_MOC_LITERAL(9, 122, 12) // "relative_pos"
+QT_MOC_LITERAL(0, 0, 13), // "q_ludo_player"
+QT_MOC_LITERAL(1, 14, 12), // "select_piece"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 13), // "turn_complete"
+QT_MOC_LITERAL(4, 42, 10), // "start_turn"
+QT_MOC_LITERAL(5, 53, 18), // "positions_and_dice"
+QT_MOC_LITERAL(6, 72, 8), // "relative"
+QT_MOC_LITERAL(7, 81, 18), // "post_game_analysis"
+QT_MOC_LITERAL(8, 100, 16), // "std::vector<int>"
+QT_MOC_LITERAL(9, 117, 12) // "relative_pos"
 
     },
-    "ludo_player_random\0select_piece\0\0"
-    "turn_complete\0start_turn\0positions_and_dice\0"
-    "relative\0post_game_analysis\0"
-    "std::vector<int>\0relative_pos"
+    "q_ludo_player\0select_piece\0\0turn_complete\0"
+    "start_turn\0positions_and_dice\0relative\0"
+    "post_game_analysis\0std::vector<int>\0"
+    "relative_pos"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_ludo_player_random[] = {
+static const uint qt_meta_data_q_ludo_player[] = {
 
  // content:
        7,       // revision
@@ -82,10 +82,10 @@ static const uint qt_meta_data_ludo_player_random[] = {
        0        // eod
 };
 
-void ludo_player_random::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void q_ludo_player::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        ludo_player_random *_t = static_cast<ludo_player_random *>(_o);
+        q_ludo_player *_t = static_cast<q_ludo_player *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->select_piece((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -97,15 +97,15 @@ void ludo_player_random::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            typedef void (ludo_player_random::*_t)(int );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ludo_player_random::select_piece)) {
+            typedef void (q_ludo_player::*_t)(int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&q_ludo_player::select_piece)) {
                 *result = 0;
                 return;
             }
         }
         {
-            typedef void (ludo_player_random::*_t)(bool );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ludo_player_random::turn_complete)) {
+            typedef void (q_ludo_player::*_t)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&q_ludo_player::turn_complete)) {
                 *result = 1;
                 return;
             }
@@ -113,26 +113,26 @@ void ludo_player_random::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
     }
 }
 
-const QMetaObject ludo_player_random::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_ludo_player_random.data,
-      qt_meta_data_ludo_player_random,  qt_static_metacall, nullptr, nullptr}
+const QMetaObject q_ludo_player::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_q_ludo_player.data,
+      qt_meta_data_q_ludo_player,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *ludo_player_random::metaObject() const
+const QMetaObject *q_ludo_player::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *ludo_player_random::qt_metacast(const char *_clname)
+void *q_ludo_player::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ludo_player_random.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_q_ludo_player.stringdata0))
         return static_cast<void*>(this);
     return QObject::qt_metacast(_clname);
 }
 
-int ludo_player_random::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int q_ludo_player::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -150,14 +150,14 @@ int ludo_player_random::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ludo_player_random::select_piece(int _t1)
+void q_ludo_player::select_piece(int _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void ludo_player_random::turn_complete(bool _t1)
+void q_ludo_player::turn_complete(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);

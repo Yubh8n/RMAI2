@@ -22,6 +22,10 @@ int main(int argc, char *argv[]){
         ludo_player p2;
         ludo_player_random p3,p4;
 
+        std::cout << "Population size:\t\t " << POPULATION_SIZE << std::endl;
+        std::cout << "Max generations:\t\t " << MAX_GEN << std::endl;
+        std::cout << "Max gamesPrChromozone:\t\t" << gamesPrChromozone << std::endl;
+
 
         game g(GA);
 

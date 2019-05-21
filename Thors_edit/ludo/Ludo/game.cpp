@@ -291,6 +291,7 @@ void game::run() {
 
             }
             GA->ChromosomeNr+=1;
+            //std::cout << "chromosone number" << std::endl;
             if (first_run){
                 auto stop = std::chrono::high_resolution_clock::now();
                 auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
@@ -300,7 +301,7 @@ void game::run() {
         }
         GA->set_fitness(fitness);
         GA->updatePopulation();
-        GA->mutate_population(0.1, 0.2);
+        GA->mutate_population(0.05, 0.2);
         GA->print_best_chromozone();
         fitness.clear();
         fitness.resize(POPULATION_SIZE);

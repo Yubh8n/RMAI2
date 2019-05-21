@@ -4,9 +4,9 @@
 #include <iostream>
 #include "positions_and_dice.h"
 
-#define POPULATION_SIZE 10
+#define POPULATION_SIZE 20
 #define VERBOSE false
-#define MAX_GEN 10
+#define MAX_GEN 100
 #define gamesPrChromozone 10
 
 
@@ -63,6 +63,7 @@ public:
     void print_best_chromozone();
     std::vector<std::vector<bool>> checkoutBoard();
     int choosePiece(std::vector<std::vector<bool>> moves, int ChromosomeNr);
+    Chromosomes Crossover(Chromosomes parent_mother, Chromosomes parent_father);
     int ChromosomeNr;
 
 

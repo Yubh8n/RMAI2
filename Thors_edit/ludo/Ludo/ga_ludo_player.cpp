@@ -5,8 +5,6 @@ ga_ludo_player::ga_ludo_player(){
 
 }
 
-
-
 void randomize(std::vector<Chromosomes> &chromozones)
 {
     for (int i = 0; i<chromozones.size(); i++)
@@ -263,14 +261,14 @@ void ga_ludo_player::print_best_chromozone()
     }
 
     std::cout << "best chromozone info:\t" << std::endl << std::endl;
+    //std::cout << "Enter\t\t" << "SafeZone\t" << "send enemy home\t" << "block\t" << "move normal\t" << "move 2 star\t" << "move 2 globe\t" << "move in safe zone\t" << "finish piece\t" << "fitness";
+    //std::cout << std::endl;
     for (int i = 0; i<best_chromozone.Genes.size(); i++)
     {
-        std::cout << best_chromozone.Genes[i] << " ";
-        std::cout << best_chromozone.fitness;
+        std::cout << best_chromozone.Genes[i] << "\t";
     }
+    std::cout << best_chromozone.fitness;
     std::cout << std::endl;
-
-
 }
 
 void ga_ludo_player::updatePopulation()
@@ -284,23 +282,71 @@ void ga_ludo_player::updatePopulation()
 Chromosomes ga_ludo_player::choose_best()
 {
     Chromosomes best;
+    Chromosomes second_best;
+    Chromosomes Cross;
     std::vector<Chromosomes> candidates;
 
-    for (int j = 0; j<population.size(); j++)
+    for (int j = 0; j<10; j++)
     {
         int random_integer = rand()%POPULATION_SIZE;
         candidates.push_back(population[random_integer]);
     }
 
-    for (int k = 0; k<candidates.size(); k++)
+    for (int k = 0; k < candidates.size(); k++)
     {
         if (candidates[k].fitness > best.fitness)
             best = candidates[k];
     }
 
-    std::cout << "best fitness: " << best.fitness << " from a pool of: " << population.size() << " " << std::endl;
-    return best;
+    for (int k = 0; k < candidates.size(); k++)
+    {
+        if (candidates[k].fitness > second_best.fitness && second_best.fitness < best.fitness)
+            second_best = candidates[k];
+    }
+
+    //std::cout << "best fitness: " << best.fitness << " from a pool of: " << "5" << " " << std::endl;
+    Cross = Crossover(best, second_best);
+
+    /*for (int i = 0; i<Cross.Genes.size(); i++)
+    {
+        //std::cout << Cross.Genes[i] << std::endl;
+    }*/
+
+    return Cross;
 }
+
+Chromosomes ga_ludo_player::Crossover(Chromosomes parent_mother, Chromosomes parent_father)
+{
+    Chromosomes Cross;
+    Chromosomes Cross_gene;
+
+
+    int parent = rand()%2;
+    if (parent > 0)
+    {
+        Cross = parent_father;
+        Cross_gene = parent_mother;
+    }
+    else
+    {
+        Cross = parent_mother;
+        Cross_gene = parent_father;
+    }
+
+    //std::cout << "Cross_gene fitness: " << Cross_gene.fitness << std::endl;
+    /*Gene chooser*/
+
+    int Gene_chooser = rand()%Cross.Genes.size();
+    std::cout << "Gene Chooser: " <<Gene_chooser << std::endl;
+    if (((Cross.Genes[Gene_chooser] + Cross_gene.Genes[Gene_chooser])/2.0) > 1)
+        Cross.Genes[Gene_chooser] = 1;
+    else
+        Cross.Genes[Gene_chooser] = (Cross.Genes[Gene_chooser] + Cross_gene.Genes[Gene_chooser])/2.0;
+    return Cross;
+}
+
+
+
 
 
 void ga_ludo_player::start_turn(positions_and_dice relative){
@@ -316,6 +362,11 @@ void ga_ludo_player::set_fitness(std::vector<float> wins)
     for (int i = 0; i<fitness.size(); i++)
     {
         population[i].fitness = fitness[i]/gamesPrChromozone;
+    }
+
+    for (int i = 0; i<population.size(); i++)
+    {
+        //std::cout << "chromozone " << i << " have a fitness of " << population[i].fitness << std::endl;
     }
 }
 
