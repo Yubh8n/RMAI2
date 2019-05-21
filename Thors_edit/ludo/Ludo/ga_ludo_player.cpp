@@ -216,33 +216,11 @@ int ga_ludo_player::make_decision(){
     std::cout<<"dice roll"<<dice_roll<<std::endl;
     std::cout<<std::endl;
     */
-    int chromosomeNr; //Variable to keep know which chromosome is being tested - Shoudl propaly be a private member for the class.
-    int piece = choosePiece(moves,chromosomeNr);
+
+    int piece = choosePiece(moves,ChromosomeNr);
+    //std::cout<<"Chromo # "<<ChromosomeNr<<std::endl;
     //std::cout<<"Piece Choosen "<<piece<<std::endl;
-    /*
-    if(dice_roll == 6){
-        for(int i = 0; i < 4; ++i){
-            if(pos_start_of_turn[i]<0){
-                return i;
-            }
-        }
-        for(int i = 0; i < 4; ++i){
-            if(pos_start_of_turn[i]>=0 && pos_start_of_turn[i] != 99){
-                return i;
-            }
-        }
-    } else {
-        for(int i = 0; i < 4; ++i){
-            if(pos_start_of_turn[i]>=0 && pos_start_of_turn[i] != 99){
-                return i;
-            }
-        }
-        for(int i = 0; i < 4; ++i){ //maybe they are all locked in
-            if(pos_start_of_turn[i]<0){
-                return i;
-            }
-        }
-    }*/
+
     return piece;
 }
 

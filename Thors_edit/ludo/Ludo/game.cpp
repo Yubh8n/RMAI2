@@ -268,10 +268,10 @@ void game::run() {
     static int gameCnt = 0;
     static int genCnt = 0;
 
-    GA->ChromosomeNr =0;        // Counter used for keeping track of the ChromosomeNr;
 
     for (int i = 0;i <MAX_GEN;i++) {
         genCnt+=1;
+        GA->ChromosomeNr =0;        // Counter used for keeping track of the ChromosomeNr;
         for(int k = 0; k<POPULATION_SIZE; k++){
             auto start = std::chrono::high_resolution_clock::now();
 
@@ -287,8 +287,10 @@ void game::run() {
                     fitness[k]++;
                 gameCnt +=1;
                 reset();
-                }
+                // UPDATE CHROMOSOME NR
 
+            }
+            GA->ChromosomeNr+=1;
             if (first_run){
                 auto stop = std::chrono::high_resolution_clock::now();
                 auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
